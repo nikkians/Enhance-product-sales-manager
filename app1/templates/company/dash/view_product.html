@@ -1,0 +1,111 @@
+{% extends 'company/dash/base.html' %}
+{% load static %}
+{% block NewContent %}
+
+<div class="row">
+  <ul class="navbar-nav mr-lg-2">
+    <li class="nav-item nav-search d-none d-lg-block">
+      <div class="input-group">
+        <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
+          <span class="input-group-text" id="search">
+            <i class="icon-search"></i>
+          </span>
+        </div>
+        <form method="GET">
+        <input type="text" class="form-control" name="search" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
+      </form>
+      </div>
+     </li>
+  </ul>
+  {% if pr %}
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Product Details</h4>
+        
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Sr No.</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>QTY</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in pr reversed %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>
+                            
+                            {% if i.prod_img %}
+                                <img src="{{ i.prod_img.url }}" width="150px">
+                            {% endif %}
+                                
+                        </td>
+                        <td>{{ i.prod_nm }}</td>
+                        <td>{{ i.prod_price }}</td>
+                        <td>{{ i.prod_qty }}</td>
+                        <td>
+                            <a href="{% url 'DeleteProduct' i.id %}" class="badge badge-danger">Delete</a>
+                            <a href="{% url 'UpdateProduct' i.id %}" class="badge badge-info">Update</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Product Details</h4>
+            
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Sr No.</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>QTY</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for i in prod reversed %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                                
+                                {% if i.prod_img %}
+                                    <img src="{{ i.prod_img.url }}" width="150px">
+                                {% endif %}
+                                    
+                            </td>
+                            <td>{{ i.prod_nm }}</td>
+                            <td>{{ i.prod_price }}</td>
+                            <td>{{ i.prod_qty }}</td>
+                            <td>
+                                <a href="{% url 'DeleteProduct' i.id %}" class="badge badge-danger">Delete</a>
+                                <a href="{% url 'UpdateProduct' i.id %}" class="badge badge-info">Update</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+  {% endif %}
+</div>
+
+{% endblock NewContent %}
